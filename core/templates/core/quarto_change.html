@@ -1,0 +1,94 @@
+{% extends 'core/basic_template.html' %}
+{% load core_tags %}
+{% load i18n %}
+{% block h1 %}
+    {% if not quarto %}
+        inclua as opções de hospedagem
+    {% else %}
+        editar
+    {% endif %}
+{% endblock %}
+{% block api_url %}
+    {% if quarto %}
+        <a href="{% url 'api:quarto-detail' quarto.id %}" target="_blank">API</a>
+    {% endif %}
+{% endblock %}
+{% block main_content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group row">
+            <label for="{{ form.name.id_for_label }}" class="col-sm-2 col-form-label">{{ form.name.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.name.field.widget.input_type }}" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.name }}" value="{{ form.name.value|default:'' }}" required>
+                {% language 'pt-BR' %}
+                    {% for error in form.name.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.endereco.id_for_label }}" class="col-sm-2 col-form-label">{{ form.endereco.label }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.endereco.field.widget.input_type }}" class="form-control" id="{{ form.endereco.id_for_label }}" name="{{ form.endereco.name }}" value="{{ form.endereco.value|default:'' }}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.tratar.id_for_label }}" class="col-sm-2 col-form-label">{{ form.tratar.label }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.tratar.field.widget.input_type }}" class="form-control" id="{{ form.tratar.id_for_label }}" name="{{ form.tratar.name }}" value="{{ form.tratar.value|default:'' }}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.telefone.id_for_label }}" class="col-sm-2 col-form-label">{{ form.telefone.label }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.telefone.field.widget.input_type }}" class="form-control" id="{{ form.telefone.id_for_label }}" name="{{ form.telefone.name }}" value="{{ form.telefone.value|default:'' }}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.description.id_for_label }}" class="col-sm-2 col-form-label">{{ form.description.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.description.field.widget.input_type }}" class="form-control" id="{{ form.description.id_for_label }}" name="{{ form.description.name }}" value="{{ form.description.value|default:'' }}">
+                {% language 'pt-BR' %}
+                    {% for error in form.description.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">{{ form.imagem.label }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.imagem.field.widget.input_type }}" id="{{ form.imagem.id_for_label }}" name="{{ form.imagem.name }}" value="{{ form.imagem.value|default:'' }}" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.color.id_for_label }}" class="col-sm-2 col-form-label">{{ form.color.label|translation }}</label>
+            <div class="col-sm-10">
+                <input type="{{ form.color.field.widget.input_type }}" class="form-control mr-auto" id="{{ form.color.id_for_label }}" name="{{ form.color.name }}" value="{{ form.color.value|default:'' }}" required>
+                <small class="form-text text-info">digite a cor em inglês para aparecer corretamente no calendário.</small>
+                {% language 'pt-BR' %}
+                    {% for error in form.color.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="{{ form.active.id_for_label }}" class="col-sm-2 col-form-label">{{ form.active.label|translation }}</label>
+            <div class="col-sm-10">
+                {{ form.active }}
+                {% language 'pt-BR' %}
+                    {% for error in form.active.errors %}
+                        <small class="form-text text-danger">{{ error }}</small>
+                    {% endfor %}
+                {% endlanguage %}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">salvar</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}

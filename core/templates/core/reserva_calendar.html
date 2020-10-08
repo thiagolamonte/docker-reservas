@@ -30,9 +30,9 @@
                 events: [
                 {% for reserva in reservas %}
                     {
-                        title  : '{{ reserva.name }}',
-                        start_date  : '{{ reserva.start_date|date:'Y-m-d' }}',
-                        end_date  : '{{ reserva.end_date|date:'Y-m-d' }}',
+                        title : '{{ reserva.name }}',
+                        start : '{{ reserva.start_date|date:'Y-m-d' }}',
+                        end : '{{ reserva.end_date|date:'Y-m-d' }}',
                         color: '{{ reserva.quarto.color|default:'darkblue' }}',
                         url: '{% url 'api:reserva-list' %}{{ reserva.id }}',
                             allDay : false,

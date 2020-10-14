@@ -46,7 +46,7 @@ class ReservaSerializer(ModelSerializer):
             'id',
             'name',
             'quarto',
-            'description',
+            'telefone',
             'status',
             'start_date',
             'end_date',

@@ -20,6 +20,12 @@
     </div>
     <script>
         $(document).ready(function() {
+            function addDays(date, days) {
+                var result = new Date(date);
+                result.setDate(result.getDate() + days);
+                return result;
+            }
+
             $('#calendar').fullCalendar({
                 locale: 'pt-br',
                 header: {
@@ -41,6 +47,22 @@
                             textColor: 'darkred',
                         {% else %}
                             borderColor: 'black',
+                            textColor: 'black'
+                        {% endif %}
+                    },
+                    {
+                        title : 'saída do {{ reserva.name }}',
+                        start : addDays('{{ reserva.end_date|date:'Y-m-d' }}', 1),
+                        end : addDays('{{ reserva.end_date|date:'Y-m-d' }}', 1),
+                        color: '{{ reserva.quarto.color|default:'darkblue' }}',
+                        url: '{% url 'api:reserva-list' %}{{ reserva.id }}',
+                            allDay : false,
+                        {% if reserva.status == 'canceled' %}
+                            borderColor: 'red',
+                            textColor: 'darkred',
+                        {% else %}
+                            borderColor: 'black',
+                            textColor: 'black'
                         {% endif %}
                     },
                 {% endfor %}
